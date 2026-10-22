@@ -75,6 +75,11 @@ var system_filter:    bool = true:
 ## until the player changes one. A missing key reads as off, so an existing
 ## install gets the pinned behaviour.
 var bios_boot_override: bool = false
+
+## A switched-on arcade cabinet shows its game's video instead of running it, until somebody uses it
+## (ArcadeAttract). Off by default: a video decode per cabinet is real work, most of all in a headset.
+## Each cabinet can override it (RetroSystem.attract_override).
+var arcade_attract_mode: bool = false
 ## Whether the spawn menu wraps onto a cylinder. Unlike the rest, this one is not
 ## an OPTIONS switch — it is the toggle on the menu's own lower-right corner.
 var menu_curved:      bool = true
@@ -348,6 +353,7 @@ func load_prefs() -> void:
 	poke_controls    = JsonStore.get_bool(data, "poke_controls",    poke_controls)
 	system_filter    = JsonStore.get_bool(data, "system_filter",    system_filter)
 	bios_boot_override = JsonStore.get_bool(data, "bios_boot_override", bios_boot_override)
+	arcade_attract_mode = JsonStore.get_bool(data, "arcade_attract_mode", arcade_attract_mode)
 	menu_curved      = JsonStore.get_bool(data, "menu_curved",      menu_curved)
 	show_hints       = JsonStore.get_bool(data, "show_hints",       show_hints)
 	hint_uses        = JsonStore.get_dict(data, "hint_uses",        hint_uses)
@@ -394,6 +400,7 @@ func save_prefs() -> bool:
 		"poke_controls":    poke_controls,
 		"system_filter":    system_filter,
 		"bios_boot_override": bios_boot_override,
+		"arcade_attract_mode": arcade_attract_mode,
 		"menu_curved":      menu_curved,
 		"show_hints":       show_hints,
 		"hint_uses":        hint_uses,
